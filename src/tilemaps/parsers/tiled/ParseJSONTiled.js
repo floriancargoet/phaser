@@ -12,6 +12,7 @@ var ParseTilesets = require('./ParseTilesets');
 var ParseObjectLayers = require('./ParseObjectLayers');
 var BuildTilesetIndex = require('./BuildTilesetIndex');
 var AssignTileProperties = require('./AssignTileProperties');
+var ConvertProperties = require('./ConvertProperties');
 
 /**
  * Parses a Tiled JSON object into a new MapData object.
@@ -48,7 +49,7 @@ var ParseJSONTiled = function (name, json, insertNull)
         orientation: json.orientation,
         format: Formats.TILED_JSON,
         version: json.version,
-        properties: json.properties,
+        properties: ConvertProperties(json.properties),
         renderOrder: json.renderorder,
         infinite: json.infinite
     });

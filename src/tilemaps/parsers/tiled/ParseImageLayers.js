@@ -4,8 +4,10 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+var Extend = require('../../../utils/object/Extend');
 var GetFastValue = require('../../../utils/object/GetFastValue');
 var CreateGroupLayer = require('./CreateGroupLayer');
+var ConvertProperties = require('./ConvertProperties');
 
 /**
  * Parses a Tiled JSON object into an array of objects with details about the image layers.
@@ -72,7 +74,8 @@ var ParseImageLayers = function (json)
             y: (curGroupState.y + layerOffsetY + curi.y),
             alpha: (curGroupState.opacity * curi.opacity),
             visible: (curGroupState.visible && curi.visible),
-            properties: GetFastValue(curi, 'properties', {})
+            properties: Extend(ConvertProperties(curi.properties), curGroupState.properties)
+
         });
     }
 

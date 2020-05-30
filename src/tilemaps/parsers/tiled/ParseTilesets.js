@@ -7,6 +7,7 @@
 var Tileset = require('../../Tileset');
 var ImageCollection = require('../../ImageCollection');
 var ParseObject = require('./ParseObject');
+var ConvertProperties = require('./ConvertProperties');
 
 /**
  * Tilesets and Image Collections
@@ -54,14 +55,7 @@ var ParseTilesets = function (json)
                         //  Convert tileproperties
                         if (tile.properties)
                         {
-                            var newPropData = {};
-
-                            tile.properties.forEach(function (propData)
-                            {
-                                newPropData[propData['name']] = propData['value'];
-                            });
-
-                            props[tile.id] = newPropData;
+                            props[tile.id] = ConvertProperties(tile.properties);
                         }
 
                         //  Convert objectgroup

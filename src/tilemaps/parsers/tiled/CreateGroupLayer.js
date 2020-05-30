@@ -5,6 +5,8 @@
  */
 
 var GetFastValue = require('../../../utils/object/GetFastValue');
+var Extend = require('../../../utils/object/Extend');
+var ConvertProperties = require('./ConvertProperties');
 
 /**
  * Parse a Tiled group layer and create a state object for inheriting.
@@ -32,7 +34,8 @@ var CreateGroupLayer = function (json, groupl, parentstate)
             opacity: 1,
             visible: true,
             x: 0,
-            y: 0
+            y: 0,
+            properties: {}
         };
     }
 
@@ -48,7 +51,8 @@ var CreateGroupLayer = function (json, groupl, parentstate)
         opacity: parentstate.opacity * groupl.opacity,
         visible: parentstate.visible && groupl.visible,
         x: parentstate.x + layerX,
-        y: parentstate.y + layerY
+        y: parentstate.y + layerY,
+        properties: Extend({}, parentstate.properties, ConvertProperties(groupl.properties))
     };
 };
 

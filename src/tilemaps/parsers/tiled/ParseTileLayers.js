@@ -5,11 +5,13 @@
  */
 
 var Base64Decode = require('./Base64Decode');
+var Extend = require('../../../utils/object/Extend');
 var GetFastValue = require('../../../utils/object/GetFastValue');
 var LayerData = require('../../mapdata/LayerData');
 var ParseGID = require('./ParseGID');
 var Tile = require('../../Tile');
 var CreateGroupLayer = require('./CreateGroupLayer');
+var ConvertProperties = require('./ConvertProperties');
 
 /**
  * Parses all tilemap layers in a Tiled JSON object into new LayerData objects.
@@ -127,7 +129,7 @@ var ParseTileLayers = function (json, insertNull)
                 tileHeight: json.tileheight,
                 alpha: (curGroupState.opacity * curl.opacity),
                 visible: (curGroupState.visible && curl.visible),
-                properties: GetFastValue(curl, 'properties', [])
+                properties: Extend(ConvertProperties(curl.properties), curGroupState.properties)
             });
 
             for (var c = 0; c < curl.height; c++)
@@ -200,7 +202,7 @@ var ParseTileLayers = function (json, insertNull)
                 tileHeight: json.tileheight,
                 alpha: (curGroupState.opacity * curl.opacity),
                 visible: (curGroupState.visible && curl.visible),
-                properties: GetFastValue(curl, 'properties', [])
+                properties: Extend(ConvertProperties(curl.properties), curGroupState.properties)
             });
 
             var row = [];
