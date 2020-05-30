@@ -6,6 +6,7 @@
 
 var Pick = require('../../../utils/object/Pick');
 var ParseGID = require('./ParseGID');
+var ConvertProperties = require('./ConvertProperties');
 
 var copyPoints = function (p) { return { x: p.x, y: p.y }; };
 
@@ -32,6 +33,11 @@ var ParseObject = function (tiledObject, offsetX, offsetY)
 
     parsedObject.x += offsetX;
     parsedObject.y += offsetY;
+
+    if (tiledObject.properties)
+    {
+        parsedObject.properties = ConvertProperties(tiledObject.properties);
+    }
 
     if (tiledObject.gid)
     {
