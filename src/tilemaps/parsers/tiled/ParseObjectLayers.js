@@ -4,6 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+var Extend = require('../../../utils/object/Extend');
 var GetFastValue = require('../../../utils/object/GetFastValue');
 var ParseObject = require('./ParseObject');
 var ObjectLayer = require('../../mapdata/ObjectLayer');
@@ -74,7 +75,7 @@ var ParseObjectLayers = function (json)
         var offsetX = curGroupState.x + GetFastValue(curo, 'startx', 0) + GetFastValue(curo, 'offsetx', 0);
         var offsetY = curGroupState.y + GetFastValue(curo, 'starty', 0) + GetFastValue(curo, 'offsety', 0);
 
-        curo.properties = ConvertProperties(curo.properties);
+        curo.properties = Extend(ConvertProperties(curo.properties), curGroupState.properties);
 
         var objects = [];
         for (var j = 0; j < curo.objects.length; j++)

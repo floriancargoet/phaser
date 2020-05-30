@@ -4,6 +4,7 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
+var Extend = require('../../../utils/object/Extend');
 var GetFastValue = require('../../../utils/object/GetFastValue');
 var CreateGroupLayer = require('./CreateGroupLayer');
 var ConvertProperties = require('./ConvertProperties');
@@ -73,7 +74,8 @@ var ParseImageLayers = function (json)
             y: (curGroupState.y + layerOffsetY + curi.y),
             alpha: (curGroupState.opacity * curi.opacity),
             visible: (curGroupState.visible && curi.visible),
-            properties: ConvertProperties(curi.properties)
+            properties: Extend(ConvertProperties(curi.properties), curGroupState.properties)
+
         });
     }
 

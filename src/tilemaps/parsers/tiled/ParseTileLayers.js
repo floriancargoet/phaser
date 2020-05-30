@@ -5,6 +5,7 @@
  */
 
 var Base64Decode = require('./Base64Decode');
+var Extend = require('../../../utils/object/Extend');
 var GetFastValue = require('../../../utils/object/GetFastValue');
 var LayerData = require('../../mapdata/LayerData');
 var ParseGID = require('./ParseGID');
@@ -128,7 +129,7 @@ var ParseTileLayers = function (json, insertNull)
                 tileHeight: json.tileheight,
                 alpha: (curGroupState.opacity * curl.opacity),
                 visible: (curGroupState.visible && curl.visible),
-                properties: ConvertProperties(curl.properties)
+                properties: Extend(ConvertProperties(curl.properties), curGroupState.properties)
             });
 
             for (var c = 0; c < curl.height; c++)
@@ -201,7 +202,7 @@ var ParseTileLayers = function (json, insertNull)
                 tileHeight: json.tileheight,
                 alpha: (curGroupState.opacity * curl.opacity),
                 visible: (curGroupState.visible && curl.visible),
-                properties: ConvertProperties(curl.properties)
+                properties: Extend(ConvertProperties(curl.properties), curGroupState.properties)
             });
 
             var row = [];
